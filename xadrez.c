@@ -1,60 +1,76 @@
 #include <stdio.h>
 
-// Desafio de Xadrez - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de movimentação das peças de xadrez.
-// O objetivo é utilizar estruturas de repetição e funções para determinar os limites de movimentação dentro do jogo.
+//criando funções recursivas
 
-int main() {
-    // Nível Novato - Movimentação das Peças
+//torre
+void moverTorre(int casas) {
+    if (casas > 0) {
+        printf("Direita\n");
+        moverTorre(casas - 1);
+    }
+}
 
-    //quanto cada peça vai andar
+//bispo
+void moverBispo(int vertical, int horizontal) {
+    if (vertical > 0 && horizontal > 0) {
+        for (int i = 0; i < 1; i++) {
+            for (int j = 0; j < 1; j++) {
+                printf("Cima, Direita\n");
+                break; 
+            }
+        }
+        moverBispo(vertical - 1, horizontal - 1); 
+    }
+}
+
+//rainha
+void moverRainha(int casas) {
+    if (casas > 0) {
+        printf("Esquerda\n");
+        moverRainha(casas - 1);
+    }
+}
+
+//cavalo
+void moverCavalo() {
+    int cavaloCima = 2;
+    int cavaloDireita = 1;
+
+    for (int i = 1, j = 0; i <= cavaloCima || j <= cavaloDireita; i++) {
+        if (i <= cavaloCima) {
+            printf("Cima\n");
+            if (i == cavaloCima) continue; 
+        }
+
+        if (i >= cavaloCima && j <= cavaloDireita) {
+            printf("Direita\n");
+            break;
+        }
+    }
+}
+
+int main(){
+
+    //quantas casas cada peça vai andar
     int torre = 5;
     int bispo = 5;
     int rainha = 8;
 
-    int cavaloBaixo = 2;
-    int cavaloEsquerda = 1;
-
-    // variaveis de controle
-    int i;
-    int j = 1;
-    int k = 1;
-
     //torre
     printf("A torre se movimenta...\n");
-
-    for(i = 1; i <= torre; i++){
-        printf("Direita\n");
-    }
+    moverTorre(torre);
 
     //bispo
     printf("O bispo se movimenta...\n");
-
-    while(j <= bispo){
-        printf("Cima, Direita\n");
-        j++;
-    }
+    moverBispo(bispo, bispo);
 
     //rainha
     printf("A rainha se movimenta...\n");
-
-    do {
-        printf("Esquerda\n");
-        k++;
-    } while(k <= rainha);
+    moverRainha(rainha);
 
     //cavalo
     printf("O cavalo se movimenta...\n");
-
-    for( i = 1; i<= cavaloBaixo; i++){
-        printf("Baixo\n");
-
-        j = 1;
-        while (j <= cavaloEsquerda && i == cavaloBaixo){
-            printf("Esquerda\n");
-            j++;
-        }
-    }
+    moverCavalo();
 
     return 0;
 }
